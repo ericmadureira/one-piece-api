@@ -1,26 +1,38 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCharacterDto } from './dto/create-character.dto';
 import { UpdateCharacterDto } from './dto/update-character.dto';
+import { Character } from './entities/character.entity';
 
 @Injectable()
 export class CharactersService {
+  private characters: Character[] = []; // in memory for initial tests.
+  private nextId: number = 1;
+
   create(createCharacterDto: CreateCharacterDto) {
-    return 'This action adds a new character';
+    const newCharacter = { id: this.nextId++, ...createCharacterDto };
+    this.characters.push(newCharacter);
+    return newCharacter;
   }
 
   findAll() {
-    return `This action returns all characters`;
+    return this.characters;
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} character`;
+    return this.characters.findIndex(c => c.id === id);
   }
 
   update(id: number, updateCharacterDto: UpdateCharacterDto) {
-    return `This action updates a #${id} character`;
+    const index = this.characters.findIndex(c => c.id === id);
+    if (index === -1) return null;
+    this.characters[index] = { ...this.characters[index], ...updateCharacterDto };
+    return this.characters[index];
   }
 
   remove(id: number) {
-    return `This action removes a #${id} character`;
+    const index = this.characters.findIndex(c => c.id === id);
+    if (index === -1) return null;
+    const [deleted] = this.characters.splice(index, 1);
+    return deleted;
   }
 }
