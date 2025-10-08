@@ -32,37 +32,22 @@ npm run start:prod
 
 Examples (using HTTPie or cURL):
 
-### Create a character
-
+```bash
+# Create a character
 http POST :3000/characters name='Luffy' height:=174 birthDate='2000-05-05'
 
-### List characters
-
+# List characters
 http :3000/characters
 
-### Get by ID
-
+# Get by ID
 http :3000/characters/1
 
-### Update
-
+# Update
 http PATCH :3000/characters/1 height:=175
 
-### Delete
-
+# Delete
 http DELETE :3000/characters/1
-
-## 🧱 Project Structure
-
-src/
- ├── characters/
- │    ├── dto/
- │    ├── entities/
- │    ├── characters.controller.ts
- │    ├── characters.service.ts
- │    └── characters.module.ts
- ├── app.module.ts
- └── main.ts
+```
 
 ## 🧾 License
 
